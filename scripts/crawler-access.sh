@@ -4,9 +4,10 @@
 # Usage: scripts/crawler-access.sh example.com [output-dir]
 set -uo pipefail
 
-DOMAIN="${1:?usage: crawler-access.sh <domain> [output-dir]}"
-DOMAIN="${DOMAIN#https://}"; DOMAIN="${DOMAIN#http://}"; DOMAIN="${DOMAIN%%/*}"
-OUT="${2:-reviews/$DOMAIN-$(date +%Y-%m-%d)}/evidence"
+. "$(cd "$(dirname "$0")" && pwd)/lib/validate.sh"
+DOMAIN="$(clean_domain "${1:?usage: crawler-access.sh <domain> [output-dir]}")" || exit 2
+RUN="${2:-reviews/$DOMAIN-$(date +%Y-%m-%d)}"; check_out "$RUN"
+OUT="$RUN/evidence"
 mkdir -p "$OUT"
 
 {

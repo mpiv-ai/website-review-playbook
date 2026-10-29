@@ -4,11 +4,13 @@
 # Usage: scripts/lighthouse-runs.sh https://example.com/ [runs] [output-dir]
 set -uo pipefail
 
-URL="${1:?usage: lighthouse-runs.sh <url> [runs] [output-dir]}"
-RUNS="${2:-3}"
-DOMAIN=$(echo "$URL" | sed -E 's#^https?://##; s#/.*##')
-OUT="${3:-reviews/$DOMAIN-$(date +%Y-%m-%d)}/evidence/perf"
 HERE="$(cd "$(dirname "$0")" && pwd)"
+. "$HERE/lib/validate.sh"
+URL="${1:?usage: lighthouse-runs.sh <url> [runs] [output-dir]}"; check_url "$URL"
+RUNS="${2:-3}"; check_int "$RUNS"
+DOMAIN=$(echo "$URL" | sed -E 's#^https?://##; s#[:/].*##')
+RUN="${3:-reviews/$DOMAIN-$(date +%Y-%m-%d)}"; check_out "$RUN"
+OUT="$RUN/evidence/perf"
 mkdir -p "$OUT"
 
 for i in $(seq 1 "$RUNS"); do

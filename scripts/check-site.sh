@@ -4,12 +4,13 @@
 # Usage: scripts/check-site.sh example.com [output-dir]
 set -uo pipefail
 
-DOMAIN="${1:?usage: check-site.sh <domain> [output-dir]}"
-DOMAIN="${DOMAIN#https://}"; DOMAIN="${DOMAIN#http://}"; DOMAIN="${DOMAIN%%/*}"
-OUT="${2:-reviews/$DOMAIN-$(date +%Y-%m-%d)}/evidence"
+HERE="$(cd "$(dirname "$0")" && pwd)"
+. "$HERE/lib/validate.sh"
+DOMAIN="$(clean_domain "${1:?usage: check-site.sh <domain> [output-dir]}")" || exit 2
+RUN="${2:-reviews/$DOMAIN-$(date +%Y-%m-%d)}"; check_out "$RUN"
+OUT="$RUN/evidence"
 UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
 BASE="https://$DOMAIN"
-HERE="$(cd "$(dirname "$0")" && pwd)"
 mkdir -p "$OUT/pages"
 
 echo "Writing evidence to $OUT"

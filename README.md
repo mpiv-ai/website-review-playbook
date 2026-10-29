@@ -34,7 +34,7 @@ export OPENAI_API_KEY=sk-...    # optional
 claude
 ```
 
-The first time Claude Code opens this folder, it asks whether to trust the folder and enable the project's browser tool (`chrome-devtools`). Say yes to both.
+The first time Claude Code opens this folder, it asks whether to trust the folder and whether to enable the project's browser tool (`chrome-devtools`). Say yes to both.
 
 ## Run a review
 
@@ -77,6 +77,17 @@ node scripts/ask-ai.mjs examples/questions.txt reviews/example.com-ai 3   # AI a
 2. Passive checks only. Don't add scanning tools to this method without a signed authorization.
 3. Every finding needs evidence. If the agent can't show it, it doesn't go in the report.
 4. `reviews/` is git-ignored because it can hold client details. Keep it that way.
+
+## Security notes
+
+The agent reads web pages you don't control, and a page can contain text written to manipulate an AI agent. The playbook limits what that text could do:
+
+- The scripts that run without asking accept only a plain domain or an http(s) URL, and they write only inside `reviews/`. The AI-answer script reads questions only from `reviews/` or `examples/`.
+- Form-filling and file-upload browser tools are blocked in `.claude/settings.json`. Other commands, including `curl`, ask for your approval each time.
+- The browser tool runs in an isolated profile (`--isolated`) and its version is pinned in `.mcp.json`.
+- Web search and page fetches are pre-approved because reading public pages is the job. If you'd rather approve each fetch, remove `WebFetch` from `.claude/settings.json`.
+
+Don't keep secrets in this folder. Keep `OPENAI_API_KEY` in your shell environment, not in a file here.
 
 ## License
 

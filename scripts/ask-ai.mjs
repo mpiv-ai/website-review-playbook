@@ -4,14 +4,22 @@
 // Usage: node scripts/ask-ai.mjs <questions.txt> <output-dir> [runs]
 //   questions.txt: one question per line.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve, relative, dirname, isAbsolute } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const [qfile, outDir, runsArg = "3"] = process.argv.slice(2);
 if (!qfile || !outDir) { console.error("usage: node scripts/ask-ai.mjs <questions.txt> <output-dir> [runs]"); process.exit(1); }
+// Only read questions from, and write answers to, this repo's reviews/ or
+// examples/ folders, so a stray argument can't send a local file to the API.
+const repo = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const inside = (p, ...dirs) => dirs.some((d) => { const r = relative(join(repo, d), resolve(p)); return r && !r.startsWith("..") && !isAbsolute(r); });
+if (!inside(qfile, "reviews", "examples")) { console.error(`Questions file must be inside reviews/ or examples/: ${qfile}`); process.exit(2); }
+if (!inside(outDir, "reviews")) { console.error(`Output folder must be inside reviews/: ${outDir}`); process.exit(2); }
 if (!process.env.OPENAI_API_KEY) { console.error("Set OPENAI_API_KEY first (export OPENAI_API_KEY=...)."); process.exit(1); }
 
 const model = process.env.AI_MODEL || "gpt-4.1-mini";
 const runs = Number(runsArg);
+if (!Number.isInteger(runs) || runs < 1 || runs > 10) { console.error(`runs must be a number from 1 to 10: ${runsArg}`); process.exit(2); }
 const questions = readFileSync(qfile, "utf8").split("\n").map((s) => s.trim()).filter(Boolean);
 mkdirSync(outDir, { recursive: true });
 

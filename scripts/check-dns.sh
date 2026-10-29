@@ -4,9 +4,11 @@
 # Usage: scripts/check-dns.sh example.com [output-dir]
 set -uo pipefail
 
-DOMAIN="${1:?usage: check-dns.sh <domain> [output-dir]}"
-DOMAIN="${DOMAIN#https://}"; DOMAIN="${DOMAIN#http://}"; DOMAIN="${DOMAIN%%/*}"; DOMAIN="${DOMAIN#www.}"
-OUT="${2:-reviews/$DOMAIN-$(date +%Y-%m-%d)}/evidence"
+. "$(cd "$(dirname "$0")" && pwd)/lib/validate.sh"
+DOMAIN="$(clean_domain "${1:?usage: check-dns.sh <domain> [output-dir]}")" || exit 2
+DOMAIN="${DOMAIN#www.}"
+RUN="${2:-reviews/$DOMAIN-$(date +%Y-%m-%d)}"; check_out "$RUN"
+OUT="$RUN/evidence"
 mkdir -p "$OUT"
 command -v dig >/dev/null || { echo "dig is required (macOS has it; on Linux install dnsutils or bind-utils)"; exit 1; }
 
