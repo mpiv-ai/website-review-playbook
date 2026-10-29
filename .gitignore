@@ -1,0 +1,6 @@
+# Review output stays on your machine. It can hold client details.
+reviews/*
+!reviews/.gitkeep
+node_modules/
+.DS_Store
+.env

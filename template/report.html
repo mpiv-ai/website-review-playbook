@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BUSINESS NAME website review · MONTH YEAR</title>
+  <!-- Replace every CAPITALIZED placeholder. Keep the section ids. Delete sections only if an area truly doesn't apply. -->
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #5d6875;
+      --paper: #f7f5f0;
+      --panel: #fffdfa;
+      --line: #d9d4ca;
+      --accent: #2c5f6e;
+      --accent-soft: #e3eef0;
+      --success: #2f6b4f;
+      --warning: #8a5a23;
+      --danger: #8f2d2d;
+      --radius: 10px;
+      --measure: 76rem;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    a { color: var(--accent); text-underline-offset: 0.18em; }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    header, main, footer { width: min(calc(100% - 40px), var(--measure)); margin-inline: auto; }
+    header { padding: 64px 0 36px; border-bottom: 1px solid var(--line); }
+    main { padding: 8px 0 64px; }
+    footer { padding: 24px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.875rem; }
+    .eyebrow { margin: 0 0 12px; color: var(--accent); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif; line-height: 1.15; text-wrap: balance; }
+    h1 { max-width: 22ch; margin: 0; font-size: clamp(2.2rem, 6vw, 4.2rem); font-weight: 500; letter-spacing: -0.03em; }
+    h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 550; }
+    h3 { margin: 28px 0 8px; font-size: 1.2rem; }
+    .dek { max-width: 70ch; margin: 22px 0 0; color: var(--muted); font-size: 1.125rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 24px; color: var(--muted); font-size: 0.875rem; }
+    nav.toc { margin-top: 24px; font-size: 0.9rem; }
+    nav.toc ol { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 0; margin: 0; list-style: none; }
+    nav.toc li + li { margin-top: 0; }
+    section { scroll-margin-top: 24px; padding: 40px 0; border-bottom: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: minmax(12rem, 0.32fr) 1fr; gap: 32px; align-items: start; }
+    .section-body { min-width: 0; }
+    .section-body > :first-child { margin-top: 0; }
+    .callout { padding: 22px 24px; border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--line)); border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--panel); }
+    .callout p:last-child { margin-bottom: 0; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+    .card { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .card h3 { margin-top: 6px; }
+    .card p { margin-bottom: 0; color: var(--muted); }
+    .label { display: inline-flex; padding: 2px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    .label.good { background: #e3f0e8; color: var(--success); }
+    .label.watch { background: #f5ead9; color: var(--warning); }
+    .label.fix { background: #f5e1e1; color: var(--danger); }
+    .table-wrap { overflow-x: auto; margin-top: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.925rem; }
+    caption { padding: 12px 16px; color: var(--muted); text-align: left; }
+    th, td { padding: 12px 16px; border-top: 1px solid var(--line); text-align: left; vertical-align: top; }
+    thead th { color: var(--muted); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    tbody th { font-weight: 600; }
+    td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    ul, ol { padding-left: 1.25rem; }
+    li + li { margin-top: 0.4rem; }
+    figure { margin: 20px 0; }
+    figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+    figure.narrow img { max-width: 320px; }
+    figcaption { margin-top: 8px; color: var(--muted); font-size: 0.875rem; }
+    .figs { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start; }
+    pre { overflow-x: auto; padding: 14px 16px; border: 1px solid var(--line); border-radius: 8px; background: #fbfaf7; font-size: 0.82rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+    code { font-size: 0.88em; }
+    blockquote { margin: 12px 0; padding: 4px 0 4px 16px; border-left: 3px solid var(--line); color: var(--muted); }
+    .rewrite { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .rewrite + .rewrite { margin-top: 14px; }
+    .rewrite .h { font-family: ui-serif, Georgia, serif; font-size: 1.35rem; line-height: 1.25; margin: 6px 0 8px; }
+    .rewrite .s { margin: 0 0 8px; }
+    .rewrite .c { margin: 0; color: var(--muted); font-size: 0.92rem; }
+    .src { color: var(--muted); font-size: 0.85rem; }
+    @media (max-width: 760px) {
+      header { padding-top: 40px; }
+      .section-head, .figs, .grid { grid-template-columns: 1fr; gap: 18px; }
+    }
+    @media (max-width: 600px) {
+      .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap th, .table-wrap td, .table-wrap caption { display: block; }
+      .table-wrap thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+      .table-wrap tr { padding: 12px 14px; border-top: 1px solid var(--line); }
+      .table-wrap th, .table-wrap td { padding: 3px 0; border: 0; }
+      td.num { white-space: normal; }
+      td[data-label]::before { content: attr(data-label) ": "; color: var(--muted); font-weight: 600; }
+    }
+    @media print {
+      :root { --paper: #fff; --panel: #fff; }
+      body { font-size: 10.5pt; }
+      header, main, footer { width: 100%; }
+      header { padding-top: 0; }
+      nav.toc { display: none; }
+      .section-head { grid-template-columns: 1fr; gap: 10px; }
+      section { padding: 22px 0; }
+      .card, .callout, tr, figure, .rewrite { break-inside: avoid; }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <header id="report-header">
+    <p class="eyebrow">Website review · DOMAIN · DATE</p>
+    <h1>THE ONE-SENTENCE VERDICT.</h1>
+    <p class="dek">TWO OR THREE SENTENCES: what's strong, what's costing clients, and how much work the fixes are.</p>
+    <div class="meta" aria-label="Report details">
+      <span>Prepared for NAME by NAME</span>
+      <span>Public pages and passive checks only</span>
+      <span>Checked DATE</span>
+    </div>
+    <nav class="toc" aria-label="Sections">
+      <ol>
+        <li><a href="#top-ten">Top 10 fixes</a></li><li><a href="#headline-rewrite">Homepage rewrite</a></li><li><a href="#what-works">What works</a></li><li><a href="#scorecard">Scorecard</a></li><li><a href="#technical">Technical</a></li><li><a href="#design-ux">Design and UX</a></li><li><a href="#positioning">Positioning</a></li><li><a href="#offers-ctas">Offers and CTAs</a></li><li><a href="#ai-readiness">AI search</a></li><li><a href="#content-search">Content and search</a></li><li><a href="#competitors">Competitors</a></li><li><a href="#method">Method</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <main>
+    <section id="top-ten" aria-labelledby="top-ten-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">01 · Recommendations</p>
+          <h2 id="top-ten-heading">Top 10 fixes, ranked by impact for the effort.</h2>
+        </div>
+        <div class="section-body">
+          <p>Items 1 through N are quick wins (hours). The rest take more time.</p>
+          <div class="table-wrap">
+            <table id="top-ten-table">
+              <caption>Impact is about winning clients. Effort is a rough estimate.</caption>
+              <thead><tr><th scope="col">#</th><th scope="col">Fix</th><th scope="col">Why</th><th scope="col">Impact</th><th scope="col">Effort</th></tr></thead>
+              <tbody>
+                <tr id="fix-1"><td class="num">1</td><th scope="row">FIX: what to change, as an action.</th><td>WHY: the number or quote from the evidence, then <a href="evidence/FILE">Evidence</a></td><td data-label="Impact">High</td><td data-label="Effort">Low</td></tr>
+                <tr id="fix-2"><td class="num">2</td><th scope="row">FIX: what to change, as an action.</th><td>WHY: the number or quote from the evidence, then <a href="evidence/FILE">Evidence</a></td><td data-label="Impact">High</td><td data-label="Effort">Low</td></tr>
+                <tr id="fix-3"><td class="num">3</td><th scope="row">FIX: what to change, as an action.</th><td>WHY: the number or quote from the evidence, then <a href="evidence/FILE">Evidence</a></td><td data-label="Impact">High</td><td data-label="Effort">Low</td></tr>
+                <tr id="fix-4"><td class="num">4</td><th scope="row">FIX: what to change, as an action.</th><td>WHY: the number or quote from the evidence, then <a href="evidence/FILE">Evidence</a></td><td data-label="Impact">High</td><td data-label="Effort">Low</td></tr>
+                <tr id="fix-5"><td class="num">5</td><th scope="row">FIX: what to change, as an action.</th><td>WHY: the number or quote from the evidence, then <a href="evidence/FILE">Evidence</a></td><td data-label="Impact">High</td><td data-label="Effort">Low</td></tr>
+                <tr id="fix-6"><td class="num">6</td><th scope="row">FIX: what to change, as an action.</th><td>WHY: the number or quote from the evidence, then <a href="evidence/FILE">Evidence</a></td><td data-label="Impact">High</td><td data-label="Effort">Low</td></tr>
+                <tr id="fix-7"><td class="num">7</td><th scope="row">FIX: what to change, as an action.</th><td>WHY: the number or quote from the evidence, then <a href="evidence/FILE">Evidence</a></td><td data-label="Impact">High</td><td data-label="Effort">Low</td></tr>
+                <tr id="fix-8"><td class="num">8</td><th scope="row">FIX: what to change, as an action.</th><td>WHY: the number or quote from the evidence, then <a href="evidence/FILE">Evidence</a></td><td data-label="Impact">High</td><td data-label="Effort">Low</td></tr>
+                <tr id="fix-9"><td class="num">9</td><th scope="row">FIX: what to change, as an action.</th><td>WHY: the number or quote from the evidence, then <a href="evidence/FILE">Evidence</a></td><td data-label="Impact">High</td><td data-label="Effort">Low</td></tr>
+                <tr id="fix-10"><td class="num">10</td><th scope="row">FIX: what to change, as an action.</th><td>WHY: the number or quote from the evidence, then <a href="evidence/FILE">Evidence</a></td><td data-label="Impact">High</td><td data-label="Effort">Low</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3 id="bigger-moves">Bigger moves after that</h3>
+          <ul><li>BIGGER MOVE 1</li><li>BIGGER MOVE 2</li></ul>
+        </div>
+      </div>
+    </section>
+    <section id="headline-rewrite" aria-labelledby="headline-rewrite-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">02 · Homepage rewrite</p>
+          <h2 id="headline-rewrite-heading">Say who it's for and what they get in the first line.</h2>
+        </div>
+        <div class="section-body">
+          <p>CURRENT HEADLINE and what it does or doesn't say.</p>
+          <div class="rewrite" id="rewrite-a">
+            <span class="label good">Option A · recommended</span>
+            <p class="h">HEADLINE: who it's for and what they get.</p>
+            <p class="s">SUBHEAD: the proof and the difference, in one or two sentences.</p>
+            <p class="c">Primary button: <strong>BUTTON</strong>. Secondary: <strong>SECONDARY</strong>.</p>
+          </div>
+          <div class="rewrite" id="rewrite-b">
+            <span class="label">Option B</span>
+            <p class="h">HEADLINE: who it's for and what they get.</p>
+            <p class="s">SUBHEAD: the proof and the difference, in one or two sentences.</p>
+            <p class="c">Primary button: <strong>BUTTON</strong>. Secondary: <strong>SECONDARY</strong>.</p>
+          </div>
+          <div class="rewrite" id="rewrite-c">
+            <span class="label">Option C</span>
+            <p class="h">HEADLINE: who it's for and what they get.</p>
+            <p class="s">SUBHEAD: the proof and the difference, in one or two sentences.</p>
+            <p class="c">Primary button: <strong>BUTTON</strong>. Secondary: <strong>SECONDARY</strong>.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <section id="what-works" aria-labelledby="what-works-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">03 · What works</p>
+          <h2 id="what-works-heading">Keep these.</h2>
+        </div>
+        <div class="section-body">
+          <div class="grid">
+            <article class="card" id="works-1"><span class="label good">Strong</span><h3>WHAT WORKS 1</h3><p>EVIDENCE: a quote or number, and why to keep it.</p></article>
+            <article class="card" id="works-2"><span class="label good">Strong</span><h3>WHAT WORKS 2</h3><p>EVIDENCE: a quote or number, and why to keep it.</p></article>
+            <article class="card" id="works-3"><span class="label good">Strong</span><h3>WHAT WORKS 3</h3><p>EVIDENCE: a quote or number, and why to keep it.</p></article>
+            <article class="card" id="works-4"><span class="label good">Strong</span><h3>WHAT WORKS 4</h3><p>EVIDENCE: a quote or number, and why to keep it.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="scorecard" aria-labelledby="scorecard-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">04 · Scorecard</p>
+          <h2 id="scorecard-heading">Eight areas at a glance.</h2>
+        </div>
+        <div class="section-body">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th scope="col">Area</th><th scope="col">Rating</th><th scope="col">Short version</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><a href="#technical">Technical</a></th><td><span class="label watch">Mixed</span></td><td>ONE LINE.</td></tr>
+                <tr><th scope="row"><a href="#design-ux">Design and UX</a></th><td><span class="label watch">Mixed</span></td><td>ONE LINE.</td></tr>
+                <tr><th scope="row"><a href="#positioning">Positioning</a></th><td><span class="label watch">Mixed</span></td><td>ONE LINE.</td></tr>
+                <tr><th scope="row"><a href="#offers-ctas">Offers and CTAs</a></th><td><span class="label watch">Mixed</span></td><td>ONE LINE.</td></tr>
+                <tr><th scope="row"><a href="#ai-readiness">AI search readiness</a></th><td><span class="label watch">Mixed</span></td><td>ONE LINE.</td></tr>
+                <tr><th scope="row"><a href="#content-search">Content and search</a></th><td><span class="label watch">Mixed</span></td><td>ONE LINE.</td></tr>
+                <tr><th scope="row"><a href="#competitors">Competitive position</a></th><td><span class="label watch">Mixed</span></td><td>ONE LINE.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="technical" aria-labelledby="technical-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">05 · Technical</p>
+          <h2 id="technical-heading">HEADLINE FINDING.</h2>
+        </div>
+        <div class="section-body">
+          <h3 id="performance">Speed (3 runs each, median)</h3>
+          <p>FROM evidence/perf/summary.txt. Table: device, score, first paint, LCP, CLS, weight, requests.</p>
+          <h3 id="accessibility">Accessibility</h3><p>FROM the Lighthouse reports.</p>
+          <h3 id="seo-basics">Technical SEO</h3><p>FROM page-meta.txt and http.txt: titles, descriptions, canonical, robots.txt, sitemap, structured data, missing-page behavior.</p>
+          <h3 id="site-security">Site security posture (passive checks)</h3><p>FROM headers.txt and tls.txt. Quote the exact header output in a &lt;pre&gt; block.</p>
+          <h3 id="email-auth">Email and domain authentication</h3><p>FROM dns.txt and email-headers.txt.</p>
+          <h3 id="hosting-tracking">Hosting, tracking, and privacy</h3><p>PLATFORM, tracking tags, privacy policy.</p>
+        </div>
+      </div>
+    </section>
+    <section id="design-ux" aria-labelledby="design-ux-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">06 · Design and UX</p>
+          <h2 id="design-ux-heading">HEADLINE FINDING.</h2>
+        </div>
+        <div class="section-body">
+          <div class="figs">
+            <figure id="fig-desktop-fold"><img src="shots/DESKTOP-FOLD.png" alt="DESCRIBE WHAT THE SCREENSHOT SHOWS"><figcaption>Desktop, first screen.</figcaption></figure>
+            <figure class="narrow" id="fig-mobile-fold"><img src="shots/MOBILE-FOLD.png" alt="DESCRIBE WHAT THE SCREENSHOT SHOWS"><figcaption>Phone, first screen (390×844).</figcaption></figure>
+          </div>
+          <h3>Five-second test</h3><ul><li><strong>Who it's for:</strong> </li><li><strong>What they do:</strong> </li><li><strong>Why them:</strong> </li></ul>
+          <h3>Visual and structure</h3><ul><li></li></ul>
+          <h3>Trust signals</h3><ul><li></li></ul>
+        </div>
+      </div>
+    </section>
+    <section id="positioning" aria-labelledby="positioning-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">07 · Target market and positioning</p>
+          <h2 id="positioning-heading">HEADLINE FINDING.</h2>
+        </div>
+        <div class="section-body">
+          <p>IDEAL CLIENT as stated on the site.</p>
+          <p>BUYER LANGUAGE TABLE: buyer phrase, where it appears.</p>
+          <p>DIFFERENTIATION and PROOF.</p>
+        </div>
+      </div>
+    </section>
+    <section id="offers-ctas" aria-labelledby="offers-ctas-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">08 · Offers and CTAs</p>
+          <h2 id="offers-ctas-heading">HEADLINE FINDING.</h2>
+        </div>
+        <div class="section-body">
+          <h3>Offers</h3><ul><li></li></ul>
+          <h3>CTAs and friction</h3><p>TABLE: page, primary CTA, note.</p>
+          <h3>Free guides (lead magnets)</h3><p></p>
+        </div>
+      </div>
+    </section>
+    <section id="ai-readiness" aria-labelledby="ai-readiness-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">09 · AI search readiness</p>
+          <h2 id="ai-readiness-heading">HEADLINE FINDING.</h2>
+        </div>
+        <div class="section-body">
+          <h3>What AI assistants say today</h3><p>TABLE: question, mode, tally across 3+ runs, example quote.</p>
+          <h3>Crawler access</h3><p>FROM crawler-access.txt.</p>
+          <h3>Could an AI agent find, understand, and book them?</h3><ul><li></li></ul>
+          <h3>What to add</h3><ol><li></li></ol>
+        </div>
+      </div>
+    </section>
+    <section id="content-search" aria-labelledby="content-search-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">10 · Content and search visibility</p>
+          <h2 id="content-search-heading">HEADLINE FINDING.</h2>
+        </div>
+        <div class="section-body">
+          <p>SEARCHES WITH NO MATCHING PAGE (judgment, not measured volume).</p>
+          <p>ARTICLE IDEAS from the owner's experience.</p>
+          <p>LINKEDIN ALIGNMENT.</p>
+        </div>
+      </div>
+    </section>
+    <section id="competitors" aria-labelledby="competitors-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">11 · Competitive scan</p>
+          <h2 id="competitors-heading">HEADLINE FINDING.</h2>
+        </div>
+        <div class="section-body">
+          <p>TABLE from evidence/competitors.md: firm, serves, price signal, main CTA, sells products?, worth borrowing. Only quotes marked VERIFIED.</p>
+          <p>TAKEAWAYS.</p>
+        </div>
+      </div>
+    </section>
+    <section id="method" aria-labelledby="method-heading">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">12 · Method and limits</p>
+          <h2 id="method-heading">How this was checked.</h2>
+        </div>
+        <div class="section-body">
+          <ul>
+            <li>Public pages and passive checks only, on DATE. No scans, form submissions, or bookings.</li>
+            <li>Pages reviewed: LIST.</li>
+            <li>Tools: curl, openssl, dig, Chrome with Lighthouse (N performance runs per device), AI-answer checks (N runs per question and mode).</li>
+            <li>Not verified: LIST, from docs/limits.md.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="report-footer">
+    DOMAIN website review · Prepared by NAME · DATE · Evidence files are in the evidence/ and shots/ folders next to this page.
+  </footer>
+</body>
+</html>
