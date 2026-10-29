@@ -28,7 +28,7 @@ You need macOS or Linux with:
 Optional, for the AI-answer checks: an OpenAI API key from [platform.openai.com](https://platform.openai.com/api-keys). Each review uses about 18 small calls on `gpt-4.1-mini`, typically well under $1.
 
 ```sh
-git clone https://github.com/MPIsaac-Per/website-review-playbook.git
+git clone https://github.com/mpiv-ai/website-review-playbook.git
 cd website-review-playbook
 export OPENAI_API_KEY=sk-...    # optional
 claude
