@@ -1,0 +1,101 @@
+# TEMPORARY: native Windows validation for MPI-2177. Not merged.
+name: windows-smoke
+on: push
+jobs:
+  smoke:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Use Git for Windows default line endings (CRLF checkout)
+        run: git config --global core.autocrlf true && git config --global --get core.autocrlf
+      - uses: actions/checkout@v4
+      - name: Scripts are checked out with LF
+        run: |
+          git ls-files --eol scripts/*.sh scripts/lib/*
+          if grep -l $'\r' scripts/*.sh scripts/lib/*; then echo "CRLF found"; exit 1; else echo "no CRLF in scripts"; fi
+      - name: Control - the pre-change commit gets CRLF and fails
+        continue-on-error: true
+        run: |
+          git clone -q -c core.autocrlf=true https://github.com/mpiv-ai/website-review-playbook.git "$RUNNER_TEMP/old"
+          cd "$RUNNER_TEMP/old" && git log -1 --oneline && git ls-files --eol scripts/check-dns.sh
+          ./scripts/check-dns.sh example.com
+      - name: Tool inventory (Git Bash)
+        run: |
+          echo "bash: $BASH_VERSION"; uname -s
+          for t in curl openssl node npx dig whois cygpath; do printf '%-8s ' $t; command -v $t || echo "(not found)"; done
+          curl --version | head -1; openssl version; node -v
+      - run: ./scripts/check-site.sh example.com
+      - run: ./scripts/check-dns.sh example.com && cat reviews/example.com-*/evidence/dns.txt
+      - run: ./scripts/crawler-access.sh example.com
+      - name: Diagnose - where Chrome writes a relative screenshot path
+        continue-on-error: true
+        run: |
+          "/c/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --window-size=800,600 --screenshot=diag-rel.png -- https://example.com/ || echo "chrome exit $?"
+          ls -la diag-rel.png || echo "not in repo folder"
+          find /c/Program\ Files/Google/Chrome -name diag-rel.png 2>/dev/null
+      - name: Control - old screenshots.sh (relative path) on Windows
+        continue-on-error: true
+        run: |
+          cd "$RUNNER_TEMP/old" && ./scripts/screenshots.sh https://example.com/
+      - name: Control - CRLF copy of a script
+        continue-on-error: true
+        run: |
+          cd "$RUNNER_TEMP/old" && file scripts/check-site.sh && ./scripts/check-site.sh example.com; echo "exit $?"
+      - run: ./scripts/screenshots.sh https://example.com/ && file reviews/example.com-*/shots/*.png
+      - if: always()
+        run: ./scripts/lighthouse-runs.sh https://example.com/ 1
+      - name: AI-answer script path guard (no key)
+        if: always()
+        run: |
+          node scripts/ask-ai.mjs examples/questions.txt reviews/example.com-ai 1 || echo "exit $? (expected: asks for OPENAI_API_KEY)"
+      - name: PDF export as documented in CLAUDE.md
+        if: always()
+        run: |
+          RUN=reviews/example.com-$(date +%Y-%m-%d); cp template/report.html "$RUN/report.html"
+          "/c/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --no-pdf-header-footer \
+            --print-to-pdf="$(pwd -W)/$RUN/report.pdf" "file:///$(pwd -W)/$RUN/report.html"
+          ls -la "$RUN/report.pdf"; head -c 5 "$RUN/report.pdf"; echo
+      - name: Claude Code install as documented (PowerShell)
+        if: always()
+        shell: pwsh
+        run: |
+          irm https://claude.ai/install.ps1 | iex
+          Test-Path "$env:USERPROFILE\.local\bin\claude.exe"
+          & "$env:USERPROFILE\.local\bin\claude.exe" --version
+      - name: Claude Code starts the project's chrome-devtools MCP server
+        if: always()
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
+          claude mcp list
+      - name: chrome-devtools-mcp handshake via npx
+        if: always()
+        shell: pwsh
+        run: |
+          @'
+          const { spawn } = require("node:child_process");
+          const p = spawn("npx -y chrome-devtools-mcp@1.12.0 --isolated --headless", { shell: true });
+          let buf = "";
+          const send = (m) => p.stdin.write(JSON.stringify(m) + "\n");
+          p.stdout.on("data", (d) => {
+            buf += d;
+            for (const line of buf.split("\n").slice(0, -1)) {
+              const m = JSON.parse(line);
+              if (m.id === 1) { send({ jsonrpc: "2.0", method: "notifications/initialized" }); send({ jsonrpc: "2.0", id: 2, method: "tools/list" }); }
+              if (m.id === 2) { console.log("tools:", m.result.tools.map((t) => t.name).join(", ")); process.exit(0); }
+            }
+            buf = buf.split("\n").pop();
+          });
+          send({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "smoke", version: "0" } } });
+          setTimeout(() => { console.error("timeout"); process.exit(1); }, 120000);
+          '@ | Set-Content mcp-smoke.cjs
+          node mcp-smoke.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-evidence
+          path: reviews/
