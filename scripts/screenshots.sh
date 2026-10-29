@@ -13,7 +13,11 @@ NAME=$(echo "$URL" | sed -E 's#^https?://[^/]+/?##; s#[?\#].*##; s#/$##; s#[^A-Z
 mkdir -p "$OUT"
 
 CHROME="${CHROME:-}"
-for c in "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" google-chrome chromium chromium-browser; do
+# Windows (Git Bash): Chrome installs for all users under Program Files, or per user under %LOCALAPPDATA%.
+WIN_USER_CHROME=""
+[ -n "${LOCALAPPDATA:-}" ] && command -v cygpath >/dev/null && WIN_USER_CHROME="$(cygpath -u "$LOCALAPPDATA")/Google/Chrome/Application/chrome.exe"
+for c in "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" google-chrome chromium chromium-browser \
+  "/c/Program Files/Google/Chrome/Application/chrome.exe" "/c/Program Files (x86)/Google/Chrome/Application/chrome.exe" "$WIN_USER_CHROME"; do
   [ -z "$CHROME" ] && { [ -x "$c" ] || command -v "$c" >/dev/null 2>&1; } && CHROME="$c"
 done
 [ -z "$CHROME" ] && { echo "Chrome not found. Set CHROME=/path/to/chrome"; exit 1; }

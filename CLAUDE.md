@@ -31,7 +31,7 @@ Start the two researcher subagents in the background first, so they work while y
 - **competitor-researcher** with the brief in `prompts/competitor-scan.md` (fill in the business description, URL, and any known competitors).
 - **ai-search-researcher** with the brief in `prompts/ai-search-check.md` (fill in the business name, owner name, domain, and what it does).
 
-Then run the scripts yourself:
+Then run the scripts yourself. They are bash scripts. On Windows, run them and the `curl`/`grep` checks in Step 3 with the Bash tool (Git Bash), not the PowerShell tool; the pre-approved commands in `.claude/settings.json` match the Bash tool.
 
 ```sh
 ./scripts/check-site.sh <domain> reviews/<run>
@@ -77,7 +77,11 @@ Cover all eight areas in `docs/checklist.md`. Then decide:
    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer \
      --print-to-pdf="reviews/<run>/report.pdf" "file://$PWD/reviews/<run>/report.html"
    ```
-   On Linux use `google-chrome` or `chromium` with the same flags.
+   On Linux use `google-chrome` or `chromium` with the same flags. On Windows, in Git Bash:
+   ```sh
+   "/c/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --no-pdf-header-footer \
+     --print-to-pdf="reviews/<run>/report.pdf" "file:///$(pwd -W)/reviews/<run>/report.html"
+   ```
 
 ## Step 6: final check (do all of these before saying you're done)
 

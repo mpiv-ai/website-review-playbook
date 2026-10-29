@@ -16,11 +16,13 @@ For each review, a folder under `reviews/<domain>-<date>/` with:
 
 ## Setup (about 10 minutes, once)
 
-You need macOS or Linux with:
+**On Windows?** Follow [Windows setup](docs/windows-setup.md) instead of this section, then come back to [Run a review](#run-a-review).
+
+On macOS or Linux you need:
 
 | Tool | Check | Install |
 |---|---|---|
-| Node.js 18 or newer | `node -v` | [nodejs.org](https://nodejs.org) or `brew install node` |
+| Node.js 22.12 or newer | `node -v` | [nodejs.org](https://nodejs.org) or `brew install node` |
 | Google Chrome | open it | [google.com/chrome](https://www.google.com/chrome/) |
 | curl, openssl, dig | `dig -v` | Included on macOS. Linux: `sudo apt install curl openssl dnsutils` |
 | Claude Code | `claude --version` | `npm install -g @anthropic-ai/claude-code`, then run `claude` once to sign in (needs a Claude Pro or Max plan, or an Anthropic API key) |
@@ -50,7 +52,7 @@ When it's done, open `reviews/<domain>-<date>/report.html` in your browser. Read
 
 ## Run the checks by hand
 
-Each script works on its own and writes into `reviews/<domain>-<date>/evidence/`:
+Each script works on its own and writes into `reviews/<domain>-<date>/evidence/`. On Windows, run them in Git Bash (see [Windows setup](docs/windows-setup.md#run-the-checks-by-hand)):
 
 ```sh
 ./scripts/check-site.sh example.com          # pages, timing, redirects, headers, robots/sitemap/llms.txt, TLS, SEO facts
@@ -69,6 +71,7 @@ node scripts/ask-ai.mjs examples/questions.txt reviews/example.com-ai 3   # AI a
 - [`docs/checklist.md`](docs/checklist.md): the eight review areas and what counts as evidence.
 - [`docs/methodology.md`](docs/methodology.md): how the original review was run, which agents and models did what, and what we changed afterward.
 - [`docs/limits.md`](docs/limits.md): what this doesn't cover.
+- [`docs/windows-setup.md`](docs/windows-setup.md): installing and running on Windows.
 - [`template/report.html`](template/report.html): the report layout.
 
 ## Rules
