@@ -22,7 +22,11 @@ for c in "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" google-c
 done
 [ -z "$CHROME" ] && { echo "Chrome not found. Set CHROME=/path/to/chrome"; exit 1; }
 
-"$CHROME" --headless=new --hide-scrollbars --window-size=1440,900 --screenshot="$OUT/desktop-$NAME.png" -- "$URL" 2>/dev/null
+# Chrome needs an absolute output path; on Windows, in Windows form.
+SAVE="$(cd "$OUT" && pwd)"
+command -v cygpath >/dev/null && SAVE="$(cygpath -w "$SAVE")"
+
+"$CHROME" --headless=new --hide-scrollbars --window-size=1440,900 --screenshot="$SAVE/desktop-$NAME.png" -- "$URL" 2>/dev/null
 "$CHROME" --headless=new --hide-scrollbars --window-size=390,844 --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148" \
-  --screenshot="$OUT/mobile-$NAME.png" -- "$URL" 2>/dev/null
+  --screenshot="$SAVE/mobile-$NAME.png" -- "$URL" 2>/dev/null
 ls -1 "$OUT"/*-"$NAME".png

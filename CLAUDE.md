@@ -80,7 +80,7 @@ Cover all eight areas in `docs/checklist.md`. Then decide:
    On Linux use `google-chrome` or `chromium` with the same flags. On Windows, in Git Bash:
    ```sh
    "/c/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --no-pdf-header-footer \
-     --print-to-pdf="reviews/<run>/report.pdf" "file:///$(pwd -W)/reviews/<run>/report.html"
+     --print-to-pdf="$(pwd -W)/reviews/<run>/report.pdf" "file:///$(pwd -W)/reviews/<run>/report.html"
    ```
 
 ## Step 6: final check (do all of these before saying you're done)
