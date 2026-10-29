@@ -1,3 +1,3 @@
-# Check out every text file with LF line endings, including on Windows.
-# The scripts run in bash, which fails on CRLF line endings.
+# Keep LF line endings in every checkout, including Windows (Git for Windows
+# defaults to CRLF), so the bash scripts are byte-identical on every platform.
 * text=auto eol=lf

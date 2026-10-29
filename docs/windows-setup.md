@@ -17,6 +17,13 @@ Run every command below in **PowerShell** (your prompt starts with `PS C:\`). Yo
 
 If you'd rather not use `winget`, download the installers from [git-scm.com/downloads/win](https://git-scm.com/downloads/win), [nodejs.org](https://nodejs.org), and [google.com/chrome](https://www.google.com/chrome/). If you install Git by hand, keep the "Add to PATH" option selected.
 
+If the Claude Code installer ends with a setup note that `.local\bin` is not in your `PATH`, add it to your user `PATH`:
+
+```powershell
+$currentPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
+[Environment]::SetEnvironmentVariable('PATH', "$currentPath;$env:USERPROFILE\.local\bin", 'User')
+```
+
 Close PowerShell and open a new window after installing, so it picks up the new `PATH`. Then confirm Git Bash has what the scripts need:
 
 ```powershell
@@ -78,7 +85,7 @@ Don't type plain `bash` in PowerShell. If WSL is installed, `bash` starts Linux 
 
 ## Troubleshooting
 
-**`claude` is not recognized.** Open a new PowerShell window first. If it still fails, check that the installer put the program in place with `Test-Path "$env:USERPROFILE\.local\bin\claude.exe"`. If that prints `True`, add `%USERPROFILE%\.local\bin` to your user `PATH`. See [Fix your PATH](https://code.claude.com/docs/en/troubleshoot-install#command-not-found-claude-after-installation).
+**`claude` is not recognized.** Open a new PowerShell window first. If it still fails, check that the installer put the program in place with `Test-Path "$env:USERPROFILE\.local\bin\claude.exe"`. If that prints `True`, run the two `PATH` commands in step 1 and open a new window. See [Fix your PATH](https://code.claude.com/docs/en/troubleshoot-install#command-not-found-claude-after-installation).
 
 **Claude Code can't find Git Bash.** Run `where.exe git` to find your Git install. Then add the path to its `bin\bash.exe` to your Claude Code user settings at `%USERPROFILE%\.claude\settings.json` (not the playbook's `.claude\settings.json`):
 
@@ -95,8 +102,6 @@ Don't type plain `bash` in PowerShell. If WSL is installed, `bash` starts Linux 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
-
-**A script fails with `$'\r': command not found`.** The script has Windows line endings, which bash can't read. A fresh `git clone` of this repo checks the scripts out with Unix line endings. If your copy came from somewhere else, or was cloned before the Windows setup was added, move any `reviews\` folders out, delete the playbook folder, and clone it again.
 
 **`chrome-devtools` doesn't connect in `/mcp`.** Check that `node -v` prints 22.12 or newer and that Chrome is installed, then restart `claude`. Until it connects, the agent can still take screenshots with `scripts/screenshots.sh` and run the performance checks.
 
